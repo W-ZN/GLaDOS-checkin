@@ -1,0 +1,25 @@
+# 工作流名称，不设置默认就取文件名
+name: GLaDOS-checkin
+# 指定触发workflow的条件，当指定触发事件时可以限定分支或标签。当前是PR时触发
+on:
+  push:
+  pull_request:
+  watch:
+    types: [ started ]
+  # 任务计划，周期性主动执行
+  schedule:
+    - cron: 9 1 * * *
+# 工作流执行的任务
+jobs:
+  # 任务名称
+  GLaDOS-checkin:
+    # 任务运行的容器类型
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2   # 将代码拷贝到虚机中
+      - name: checkin
+        env:  # 获取设置的secret
+          COOKIE: ${{ secrets.COOKIE }}
+          SCKEY: ${{ secrets.SCKEY }}
+        run: |    # 执行脚本
+          ./checkin.sh
