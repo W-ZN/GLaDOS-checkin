@@ -22,4 +22,4 @@ jobs:
           COOKIE: ${{ secrets.COOKIE }}
           SCKEY: ${{ secrets.SCKEY }}
         run: |    # 执行脚本
-          ./checkin.sh
+          sudo ./checkin.sh
