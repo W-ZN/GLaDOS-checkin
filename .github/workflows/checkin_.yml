@@ -11,15 +11,15 @@ on:
     - cron: 9 1 * * *
 # 工作流执行的任务
 jobs:
-  # 任务名称
   GLaDOS-checkin:
-    # 任务运行的容器类型
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2   # 将代码拷贝到虚机中
+      - name: Set execute permissions
+        run: chmod +x ./checkin.sh
       - name: checkin
-        env:  # 获取设置的secret
+        env:  
           COOKIE: ${{ secrets.COOKIE }}
           SCKEY: ${{ secrets.SCKEY }}
-        run: |    # 执行脚本
-          sudo ./checkin.sh
+        run: ./checkin.sh
+
